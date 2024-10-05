@@ -15,6 +15,9 @@ func Handlers(hs ...slog.Handler) slog.Handler {
 	// internal handers have been created using this function.
 	var flat []slog.Handler
 	for _, h := range hs {
+		if h == nil {
+			continue
+		}
 		if in, ok := h.(internal); ok {
 			flat = append(flat, in.handlers()...)
 		} else {
